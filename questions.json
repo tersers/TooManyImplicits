@@ -143,7 +143,7 @@
                   {
                     "question": {
                       "content": {
-                        "text": "areBaseClassCtorsAccessibleCpp03"
+                        "text": "areBaseClassDefaultCtorsAccessibleCpp03"
                       },
                       "answers": [
                         {
@@ -151,7 +151,29 @@
                             "text": "yes"
                           },
                           "action": {
-                            "setFlag": "baseClassCtorsAccessible"
+                            "setFlag": "baseClassDefaultCtorsAccessible"
+                          }
+                        },
+                        {
+                          "content": {
+                            "text": "no"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "question": {
+                      "content": {
+                        "text": "areBaseClassDefaultCtorsTrivial"
+                      },
+                      "answers": [
+                        {
+                          "content": {
+                            "text": "yes"
+                          },
+                          "action": {
+                            "setFlag": "baseClassDefaultCtorsTrivial"
                           }
                         },
                         {
@@ -187,6 +209,28 @@
                   {
                     "question": {
                       "content": {
+                        "text": "areBaseClassCopyCtorsTrivial"
+                      },
+                      "answers": [
+                        {
+                          "content": {
+                            "text": "yes"
+                          },
+                          "action": {
+                            "setFlag": "baseClassCopyCtorsTrivial"
+                          }
+                        },
+                        {
+                          "content": {
+                            "text": "no"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "question": {
+                      "content": {
                         "text": "areBaseClassCopyAsgnsAccessibleCpp03"
                       },
                       "answers": [
@@ -209,6 +253,28 @@
                   {
                     "question": {
                       "content": {
+                        "text": "areBaseClassCopyAsgnsTrivial"
+                      },
+                      "answers": [
+                        {
+                          "content": {
+                            "text": "yes"
+                          },
+                          "action": {
+                            "setFlag": "baseClassCopyAsgnsTrivial"
+                          }
+                        },
+                        {
+                          "content": {
+                            "text": "no"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "question": {
+                      "content": {
                         "text": "areBaseClassDtorsAccessibleCpp03"
                       },
                       "answers": [
@@ -218,6 +284,28 @@
                           },
                           "action": {
                             "setFlag": "baseClassDtorsAccessible"
+                          }
+                        },
+                        {
+                          "content": {
+                            "text": "no"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "question": {
+                      "content": {
+                        "text": "areBaseClassDtorsTrivial"
+                      },
+                      "answers": [
+                        {
+                          "content": {
+                            "text": "yes"
+                          },
+                          "action": {
+                            "setFlag": "baseClassDtorsTrivial"
                           }
                         },
                         {
@@ -379,7 +467,7 @@
                   {
                     "question": {
                       "content": {
-                        "text": "areBaseClassCtorsAccessible"
+                        "text": "areBaseClassDefaultCtorsAccessible"
                       },
                       "answers": [
                         {
@@ -387,7 +475,29 @@
                             "text": "yes"
                           },
                           "action": {
-                            "setFlag": "baseClassCtorsAccessible"
+                            "setFlag": "baseClassDefaultCtorsAccessible"
+                          }
+                        },
+                        {
+                          "content": {
+                            "text": "no"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "question": {
+                      "content": {
+                        "text": "areBaseClassDefaultCtorsTrivial"
+                      },
+                      "answers": [
+                        {
+                          "content": {
+                            "text": "yes"
+                          },
+                          "action": {
+                            "setFlag": "baseClassDefaultCtorsTrivial"
                           }
                         },
                         {
@@ -422,6 +532,28 @@
                   },
                   {
                     "question": {
+                      "content": {
+                        "text": "areBaseClassCopyCtorsTrivial"
+                      },
+                      "answers": [
+                        {
+                          "content": {
+                            "text": "yes"
+                          },
+                          "action": {
+                            "setFlag": "baseClassCopyCtorsTrivial"
+                          }
+                        },
+                        {
+                          "content": {
+                            "text": "no"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "question": {
                       "contnent": {
                         "text": "areBaseClassMoveCtorsAccessible"
                       },
@@ -438,7 +570,30 @@
                           "content": {
                             "text": "no"
                           }
-                        }]
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "question": {
+                      "content": {
+                        "text": "areBaseClassMoveCtorsTrivial"
+                      },
+                      "answers": [
+                        {
+                          "content": {
+                            "text": "yes"
+                          },
+                          "action": {
+                            "setFlag": "baseClassMoveCtorsTrivial"
+                          }
+                        },
+                        {
+                          "content": {
+                            "text": "no"
+                          }
+                        }
+                      ]
                     }
                   },
                   {
@@ -453,6 +608,28 @@
                           },
                           "action": {
                             "setFlag": "baseClassCopyAsgnsAccessible"
+                          }
+                        },
+                        {
+                          "content": {
+                            "text": "no"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "question": {
+                      "content": {
+                        "text": "areBaseClassCopyAsgnsTrivial"
+                      },
+                      "answers": [
+                        {
+                          "content": {
+                            "text": "yes"
+                          },
+                          "action": {
+                            "setFlag": "baseClassCopyAsgnsTrivial"
                           }
                         },
                         {
@@ -488,6 +665,28 @@
                   {
                     "question": {
                       "content": {
+                        "text": "areBaseClassMoveAsgnsTrivial"
+                      },
+                      "answers": [
+                        {
+                          "content": {
+                            "text": "yes"
+                          },
+                          "action": {
+                            "setFlag": "baseClassMoveAsgnsTrivial"
+                          }
+                        },
+                        {
+                          "content": {
+                            "text": "no"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "question": {
+                      "content": {
                         "text": "areBaseClassDtorsAccessible"
                       },
                       "answers": [
@@ -497,6 +696,28 @@
                           },
                           "action": {
                             "setFlag": "baseClassDtorsAccessible"
+                          }
+                        },
+                        {
+                          "content": {
+                            "text": "no"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "question": {
+                      "content": {
+                        "text": "areBaseClassDtorsTrivial"
+                      },
+                      "answers": [
+                        {
+                          "content": {
+                            "text": "yes"
+                          },
+                          "action": {
+                            "setFlag": "baseClassDtorsTrivial"
                           }
                         },
                         {
