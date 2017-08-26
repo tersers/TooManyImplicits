@@ -1,0 +1,814 @@
+{
+  "questions": {
+    "start": [
+      {
+        "question": {
+          "content": {
+            "text": "whichVersion"
+          },
+          "answers": [
+            {
+              "content": {
+                "rawText": "C++03"
+              },
+              "action": {
+                "set": {
+                  "name": "cppVersion",
+                  "value": "cpp03"
+                }
+              }
+            },
+            {
+              "content": {
+                "rawText": "C++11"
+              },
+              "action": {
+                "set": {
+                  "name": "cppVersion",
+                  "value": "cpp11"
+                }
+              }
+            },
+            {
+              "content": {
+                "rawText": "C++14"
+              },
+              "action": {
+                "name": "cppVersion",
+                "value": "cpp14"
+              }
+            },
+            {
+              "content": {
+                "rawText": "C++17"
+              },
+              "action": {
+                "name": "cppVersion",
+                "value": "cpp17"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "question": {
+          "content": {
+            "text": "isDerived"
+          },
+          "answers": [
+            {
+              "content": {
+                "text": "yes"
+              },
+              "action": {
+                "setFlag": "isDerived"
+              }
+            },
+            {
+              "content": {
+                "text": "no"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "question": {
+          "content": {
+            "text": "hasVirtualFunctions"
+          },
+          "answers": [
+            {
+              "content": {
+                "text": "yes"
+              },
+              "action": {
+                "setFlag": "hasVirtualFunctions"
+              }
+            },
+            {
+              "content": {
+                "text": "no"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "question": {
+          "content": {
+            "text": "isVirtuallyDerived"
+          },
+          "answers": [
+            {
+              "content": {
+                "text": "yes"
+              },
+              "action": {
+                "setFlag": "isVirtuallyDerived"
+              }
+            },
+            {
+              "content": {
+                "text": "no"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "branch": {
+          "condition": {
+            "flagEquals": {
+              "flag": "cppVersion",
+              "value": "cpp03"
+            }
+          },
+          "true": [
+            {
+              "question": {
+                "content": {
+                  "text": "hasUserDeclaredCtors"
+                },
+                "answers": [
+                  {
+                    "content": {
+                      "text": "yes"
+                    },
+                    "action": {
+                      "setFlag": "hasUserDeclaredCtors"
+                    }
+                  },
+                  {
+                    "content": {
+                      "text": "no"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "question": {
+                "content": {
+                  "text": "hasUserDeclaredCopyCtor"
+                },
+                "answers": [
+                  {
+                    "content": {
+                      "text": "yes"
+                    },
+                    "action": {
+                      "setFlag": "hasUserDeclaredCopyCtor"
+                    }
+                  },
+                  {
+                    "content": {
+                      "text": "no"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "content": {
+                "text": "hasUserDeclaredCopyAsgn"
+              },
+              "answers": [
+                {
+                  "content": {
+                    "text": "yes"
+                  },
+                  "action": {
+                    "setFlag": "hasUserDeclaredCopyAsgn"
+                  }
+                },
+                {
+                  "content": {
+                    "text": "no"
+                  }
+                }
+              ]
+            },
+            {
+              "content": {
+                "text": "hasUserDeclaredDtor"
+              },
+              "answers": [
+                {
+                  "content": {
+                    "text": "yes"
+                  },
+                  "action": {
+                    "setFlag": "hasUserDeclaredDtor"
+                  }
+                },
+                {
+                  "content": {
+                    "text": "no"
+                  }
+                }
+              ]
+            },
+            {
+              "question": {
+                "content": {
+                  "text": "hasConstMembers"
+                },
+                "answers": [
+                  {
+                    "content": {
+                      "text": "yes"
+                    },
+                    "action": {
+                      "setFlag": "hasConstMembers"
+                    }
+                  },
+                  {
+                    "content": {
+                      "text": "no"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "question": {
+                "content": {
+                  "text": "hasRefMembers"
+                },
+                "answers": [
+                  {
+                    "content": {
+                      "text": "yes"
+                    },
+                    "action": {
+                      "setFlag": "hasRefMembers"
+                    }
+                  },
+                  {
+                    "content": {
+                      "text": "no"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "false": [
+          {
+            "question": {
+              "content": {
+                "text": "hasUserDeclaredCtors"
+              },
+              "answers": [
+                {
+                  "content": {
+                    "text": "yes"
+                  },
+                  "action": {
+                    "setFlag": "hasUserDeclaredCtors"
+                  }
+                },
+                {
+                  "content": {
+                    "text": "no"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "question": {
+              "content": {
+                "text": "hasUserDeclaredCopyCtor"
+              },
+              "answers": [
+                {
+                  "content": {
+                    "text": "yes"
+                  },
+                  "action": {
+                    "question": {
+                      "content": {
+                        "text": "isUserCtorDefaulted"
+                      },
+                      "answers": [
+                        {
+                          "content": {
+                            "text": "yes"
+                          }
+                        },
+                        {
+                          "content": {
+                            "text": "no"
+                          },
+                          "action": [
+                            {
+                              "setFlag": "hasUserDeclaredCopyCtor"
+                            },
+                            {
+                              "question": {
+                                "content": {
+                                  "text": "isUserCtorDeleted"
+                                },
+                                "answers": [
+                                  {
+                                    "content": {
+                                      "text": "yes"
+                                    },
+                                    "action": {
+                                      "setFlag": "userDeletedCopyCtor"
+                                    }
+                                  },
+                                  {
+                                    "content": {
+                                      "text": "no"
+                                    }
+                                  }
+                                ]
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "content": {
+                    "text": "no"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "question": {
+              "content": {
+                "text": "hasUserDeclaredCopyAsgn"
+              },
+              "answers": [
+                {
+                  "content": {
+                    "text": "yes"
+                  },
+                  "action": {
+                    "question": {
+                      "content": {
+                        "text": "isUserAsgnDefaulted"
+                      },
+                      "answers": [
+                        {
+                          "content": {
+                            "text": "yes"
+                          }
+                        },
+                        {
+                          "content": {
+                            "text": "no"
+                          },
+                          "action": [
+                            {
+                              "setFlag": "hasUserDeclaredCopyAsgn"
+                            },
+                            {
+                              "question": {
+                                "content": {
+                                  "text": "isUserAsgnDeleted"
+                                },
+                                "answers": [
+                                  {
+                                    "content": {
+                                      "text": "yes"
+                                    },
+                                    "action": {
+                                      "setFlag": "userDeletedCopyAsgn"
+                                    }
+                                  }
+                                ]
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "content": {
+                    "text": "no"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "question": {
+              "content": {
+                "text": "hasUserDeclaredMoveCtor"
+              },
+              "answers": [
+                {
+                  "content": {
+                    "text": "yes"
+                  },
+                  "action": {
+                    "question": {
+                      "content": {
+                        "text": "isUserCtorDefaulted"
+                      },
+                      "answers": [
+                        {
+                          "content": {
+                            "text": "yes"
+                          }
+                        },
+                        {
+                          "content": {
+                            "text": "no"
+                          },
+                          "action": [
+                            {
+                              "setFlag": "hasUserDeclaredMoveCtor"
+                            },
+                            {
+                              "question": {
+                                "content": {
+                                  "text": "isUserCtorDeleted"
+                                },
+                                "answers": [
+                                  {
+                                    "content": {
+                                      "text": "yes"
+                                    },
+                                    "action": {
+                                      "setFlag": "userDeletedMoveCtor"
+                                    }
+                                  },
+                                  {
+                                    "content": {
+                                      "text": "no"
+                                    }
+                                  }
+                                ]
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "content": {
+                    "text": "no"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "question": {
+              "content": {
+                "text": "hasUserDeclaredMoveAsgn"
+              },
+              "answers": [
+                {
+                  "content": {
+                    "text": "yes"
+                  },
+                  "action": {
+                    "question": {
+                      "content": {
+                        "text": "isUserCtorDefaulted"
+                      },
+                      "answers": [
+                        {
+                          "content": {
+                            "text": "yes"
+                          }
+                        },
+                        {
+                          "content": {
+                            "text": "no"
+                          },
+                          "action": [
+                            {
+                              "setFlag": "hasUserDeclaredMoveAsgn"
+                            },
+                            {
+                              "question": {
+                                "content": {
+                                  "text": "isUserCtorDeleted"
+                                },
+                                "answers": [
+                                  {
+                                    "content": {
+                                      "text": "yes"
+                                    },
+                                    "action": {
+                                      "setFlag": "userDeletedMoveAsgn"
+                                    }
+                                  },
+                                  {
+                                    "content": {
+                                      "text": "no"
+                                    }
+                                  }
+                                ]
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "content": {
+                    "text": "no"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "question": {
+              "content": {
+                "text": "hasUserDeclaredDtor"
+              },
+              "answers": [
+                {
+                  "content": {
+                    "text": "yes"
+                  },
+                  "action": {
+                    "question": {
+                      "content": {
+                        "text": "isUserDtorDefaulted"
+                      },
+                      "answers": [
+                        {
+                          "content": {
+                            "text": "yes"
+                          }
+                        },
+                        {
+                          "content": {
+                            "text": "no"
+                          },
+                          "action": [
+                            {
+                              "setFlag": "hasUserDeclaredDtor"
+                            },
+                            {
+                              "question": {
+                                "content": {
+                                  "text": "isUserDtorDeleted"
+                                },
+                                "answers": [
+                                  {
+                                    "content": {
+                                      "text": "yes"
+                                    },
+                                    "action": {
+                                      "setFlag": "userDeletedDtor"
+                                    }
+                                  },
+                                  {
+                                    "content": {
+                                      "text": "no"
+                                    }
+                                  }
+                                ]
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "content": {
+                    "text": "no"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "question": {
+              "content": {
+                "text": "hasConstMembers"
+              },
+              "answers": [
+                {
+                  "content": {
+                    "text": "yes"
+                  },
+                  "action": {
+                    "question": {
+                      "content": {
+                        "text": "allHaveDefaultInits"
+                      },
+                      "answers": [
+                        {
+                          "content": {
+                            "text": "yes"
+                          }
+                        },
+                        {
+                          "content": {
+                            "text": "no"
+                          },
+                          "action": {
+                            "setFlag": "hasConstMembers"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "content": {
+                    "text": "no"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "question": {
+              "content": {
+                "text": "hasRefMembers"
+              },
+              "answers": [
+                {
+                  "content": {
+                    "text": "yes"
+                  },
+                  "action": {
+                    "question": {
+                      "content": {
+                        "text": "allHaveDefaultInits"
+                      },
+                      "answers": [
+                        {
+                          "content": {
+                            "text": "yes"
+                          },
+                          "action": {
+                            "jump": "checkDefaultCtor"
+                          }
+                        },
+                        {
+                          "content": {
+                            "text": "no"
+                          },
+                          "action": [
+                            {
+                              "setFlag": "hasRefMembers"
+                            },
+                            {
+                              "jump": "checkDefaultCtor"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    ],
+    "checkDefaultCtor": {
+      "branch": {
+        "condition": [
+          {
+            "flagNotSet": "hasConstMembers"
+          },
+          {
+            "flagNotSet": "hasRefMembers"
+          },
+        ]
+      }
+    }
+  },
+  "answers": {
+    "hasImplicitDeclDefaultCtor": {
+      "content": {
+        "text": "hasImplicitDeclDefaultCtor"
+      },
+      "link": "http://en.cppreference.com/w/cpp/language/default_constructor#Implicitly-declared_default_constructor"
+    },
+    "hasTrivialDefaultCtor": {
+      "content": {
+        "text": "trivialDefaultCtor"
+      },
+      "link": "http://en.cppreference.com/w/cpp/language/default_constructor#Trivial_default_constructor"
+    },
+    "hasImplicitDeclCopyCtor": {
+      "content": {
+        "text": "hasImplicitDeclCopyCtor"
+      },
+      "link": "http://en.cppreference.com/w/cpp/language/copy_constructor#Implicitly-declared_copy_constructor"
+    },
+    "hasTrivialCopyCtor": {
+      "content": {
+        "text": "hasTrivialCopyCtor"
+      },
+      "link": "http://en.cppreference.com/w/cpp/language/copy_constructor#Trivial_copy_constructor"
+    },
+    "hasImplicitDeclCopyAsgn": {
+      "content": {
+        "text": "hasImplicitDeclCopyAsgn"
+      },
+      "link": "http://en.cppreference.com/w/cpp/language/copy_assignment#Implicitly-declared_copy_assignment_operator"
+    },
+    "hasTrivialCopyAsgn": {
+      "content": {
+        "text": "hasTrivialCopyAsgn"
+      },
+      "link": "http://en.cppreference.com/w/cpp/language/copy_assignment#Trivial_copy_assignment_operator"
+    },
+    "hasImplicitDeclMoveCtor": {
+      "content": {
+        "text": "hasImplicitDeclMoveCtor"
+      },
+      "link": "http://en.cppreference.com/w/cpp/language/move_constructor#implicitly-declared_move_constructor"
+    },
+    "hasTrivialMoveCtor": {
+      "content": {
+        "text": "hasTrivialMoveCtor"
+      },
+      "link": "http://en.cppreference.com/w/cpp/language/move_constructor#Trivial_move_constructor"
+    },
+    "hasImplicitDeclMoveAsgn": {
+      "content": {
+        "text": "hasImplicitDeclMoveAsgn"
+      },
+      "link": "http://en.cppreference.com/w/cpp/language/move_assignment#Implicitly-declared_move_assignment_constructor"
+    },
+    "hasTrivialMoveAsgn": {
+      "content": {
+        "text": "hasTrivialCopyAsgn"
+      },
+      "link": "http://en.cppreference.com/w/cpp/language/move_assignment#Trivial_move_assignment_operator"
+    },
+    "hasImplicitDeclDtor": {
+      "content": {
+        "text": "hasImplicitDeclDtor"
+      },
+      "link": "http://en.cppreference.com/w/cpp/language/destructor#Implicitly-declared_destructor"
+    },
+    "hasTrivialDtor": {
+      "content": {
+        "text": "hasTrivialDtor"
+      },
+      "link": "http://en.cppreference.com/w/cpp/language/destructor#Trivial_destructor"
+    }
+  },
+  "text": {
+    "en-us": {
+      "yes": "Yes",
+      "no": "No",
+      "whichVersion": "Which version of C++ are you using?",
+      "isDerived": "Does your class inherit from another class?",
+      "hasVirtualFunctions": "Does your class have any virtual functions?",
+      "isVirtuallyDerived": "Does your class virtually inherit from another class?",
+      "hasRefMembers": "Does your class have any reference members?",
+      "hasConstMembers": "Does your class have any const members?",
+      "allHaveDefaultInits": "Are they <b>all</b> initialized with a default initializer?",
+      "hasImplicitDeclDefaultCtor": "Your class has an implicitly-declared copy constructor.",
+      "trivialDefaultCtor": "Your default constructor is trivial.",
+      "hasImplicitDeclCopyCtor": "Your class has an implicitly-declared copy constructor.",
+      "hasTrivialCopyCtor": "Your copy constructor is trivial.",
+      "hasImplicitDeclCopyAsgn": "Your class has an implicitly-declared copy assignment operator.",
+      "hasTrivialCopyAsgn": "Your copy assignment operator is trivial.",
+      "hasImplicitDeclMoveCtor": "Your class has an implicitly-declared move constructor.",
+      "hasTrivialMoveCtor": "Your move constructor is trivial.",
+      "hasImplicitDeclMoveAsgn": "Your class has an implicitly-declared move assignment operator.",
+      "hasTrivialMoveAsgn": "Your move assignment operator is trivial.",
+      "hasImplicitDtor": "Your class has an implicit destructor.",
+      "hasTrivialDtor": "Your destructor is trivial.",
+      "hasUserDeclaredDefaultCtor": "Have you declared a default constructor?",
+      "hasUserDeclaredCtors": "Have you declared <b>any</b> constructors?",
+      "hasUserDeclaredCopyCtor": "Have you declared a copy constructor?",
+      "hasUserDeclaredCopyAsgn": "Have you declared a copy assignment operator?",
+      "hasUserDeclaredMoveCtor": "Have you declared a move constructor?",
+      "hasUserDeclaredMoveAsgn": "Have you declared a move assignment operator?",
+      "hasUserDeclaredDtor": "Have you declared a destructor?",
+      "isUserCtorDefaulted": "Is this constructor defaulted with <code>= default;</code>?",
+      "isUserCtorDeleted": "Is this constructor deleted with <code>= delete;</code>?",
+      "isUserAsgnDefaulted": "Is this operator defaulted with <code>= default;</code>?",
+      "isUserAsgnDeleted": "Is this operator deleted with <code>= delete;</code>?",
+      "isUserDtorDefaulted": "Is this destructor defaulted with <code>= default;</code>?",
+      "isUserDtorDeleted": "Is this destructor deleted with <code>= default;</code>?"
+    }
+  }
+}

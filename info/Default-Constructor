@@ -1,0 +1,22 @@
+Default Constructor
+- No others
+- Or, default ctor is = default
+
+Deleted/Undefined:
+- T has a member of reference type without a default initializer. (since C++11)
+- T has a const member without user-defined default constructor or a default member initializer (since C++11).
+- T has a member (without a default member initializer) (since C++11) which has a deleted default constructor, or its default constructor is ambiguous or inaccessible from this constructor.
+- T has a direct or virtual base which has a deleted default constructor, or it is ambiguous or inaccessible from this constructor.
+- T has a direct or virtual base which has a deleted destructor, or a destructor that is inaccessible from this constructor.
+- T is a union with at least one variant member with non-trivial default constructor, and no variant member of T has a default member initializer.
+- T is a non-union class with a variant member M with a non-trivial default constructor, and no variant member of the anonymous union containing M has a default member initializer. (since C++11)
+- T is a union and all of its variant members are const.
+- If no user-defined constructors are present and the implicitly-declared default constructor is not trivial, the user may still inhibit the automatic generation of an implicitly-defined default constructor by the compiler with the keyword delete.	(since C++11)
+
+Trivial Default Ctor:
+	- Not user-provided
+	- Class not virtual
+	- Class not virtual derived
+	- No default initializers
+	- Parents of T all have trivial defaults
+	- Every non-static member has trivial default ctor
