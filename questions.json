@@ -143,7 +143,7 @@
                   {
                     "question": {
                       "content": {
-                        "text": "areBaseClassDefaultCtorsAccessibleCpp03"
+                        "text": "areBaseClassDefaultCtorsAccessible"
                       },
                       "answers": [
                         {
@@ -187,7 +187,7 @@
                   {
                     "question": {
                       "content": {
-                        "text": "areBaseClassCopyCtorsAccessibleCpp03"
+                        "text": "areBaseClassCopyCtorsAccessible"
                       },
                       "answers": [
                         {
@@ -231,7 +231,51 @@
                   {
                     "question": {
                       "content": {
-                        "text": "areBaseClassCopyAsgnsAccessibleCpp03"
+                        "text": "areBaseClassMoveCtorsAccessible"
+                      },
+                      "answers": [
+                        {
+                          "content": {
+                            "text": "yes"
+                          },
+                          "action": {
+                            "setFlag": "baseClassMoveCtorsAccessible"
+                          }
+                        },
+                        {
+                          "content": {
+                            "text": "no"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "question": {
+                      "content": {
+                        "text": "areBaseClassMoveCtorsTrivial"
+                      },
+                      "answers": [
+                        {
+                          "content": {
+                            "text": "yes"
+                          },
+                          "action": {
+                            "setFlag": "baseClassMoveCtorsTrivial"
+                          }
+                        },
+                        {
+                          "content": {
+                            "text": "no"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "question": {
+                      "content": {
+                        "text": "areBaseClassCopyAsgnsAccessible"
                       },
                       "answers": [
                         {
@@ -275,7 +319,7 @@
                   {
                     "question": {
                       "content": {
-                        "text": "areBaseClassDtorsAccessibleCpp03"
+                        "text": "areBaseClassDtorsAccessible"
                       },
                       "answers": [
                         {
@@ -331,6 +375,28 @@
                     },
                     "action": {
                       "setFlag": "hasUserDeclaredCtors"
+                    }
+                  },
+                  {
+                    "content": {
+                      "text": "no"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "question": {
+                "content": {
+                  "text": "hasUserDeclaredDefaultCtor"
+                },
+                "answers": [
+                  {
+                    "content": {
+                      "text": "yes"
+                    },
+                    "action": {
+                      "setFlag": "hasUserDeclaredDefaultCtor"
                     }
                   },
                   {
@@ -435,13 +501,21 @@
                     "content": {
                       "text": "yes"
                     },
-                    "action": {
-                      "setFlag": "hasRefMembers"
-                    }
+                    "action": [
+                      {
+                        "setFlag": "hasRefMembers"
+                      },
+                      {
+                        "jump": "checkDefaultCtorCpp03"
+                      }
+                    ]
                   },
                   {
                     "content": {
                       "text": "no"
+                    },
+                    "action": {
+                      "jump": "checkDefaultCtorCpp03"
                     }
                   }
                 ]
@@ -554,7 +628,7 @@
                   },
                   {
                     "question": {
-                      "contnent": {
+                      "content": {
                         "text": "areBaseClassMoveCtorsAccessible"
                       },
                       "answers": [
@@ -748,6 +822,66 @@
                   {
                     "content": {
                       "text": "no"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "question": {
+                "content": {
+                  "text": "hasUserDeclaredDefaultCtor"
+                },
+                "answers": [
+                  {
+                    "content": {
+                      "text": "yes"
+                    },
+                    "action": {
+                      "question": {
+                        "content": {
+                          "text": "isUserCtorDefaulted"
+                        },
+                        "answers": [
+                          {
+                            "content": {
+                              "text": "yes"
+                            }
+                          },
+                          {
+                            "content": {
+                              "text": "no"
+                            },
+                            "action": [
+                              {
+                                "setFlag": "hasUserDeclaredDefaultCtor"
+                              },
+                              {
+                                "question": {
+                                  "content": {
+                                    "text": "isUserCtorDeleted"
+                                  },
+                                  "answers": [
+                                    {
+                                      "content": {
+                                        "text": "yes"
+                                      },
+                                      "action": {
+                                        "setFlag": "userDeletedDefaultCtor"
+                                      }
+                                    },
+                                    {
+                                      "content": {
+                                        "text": "no"
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
                     }
                   }
                 ]
@@ -1162,14 +1296,122 @@
         }
       }
     ],
+    "checkDefaultCtorCpp03": {
+      "branch": {
+        "condition": [
+          {
+            "flagNotSet": "hasUserDeclaredCtors"
+          },
+          {
+            "flagNotSet": "hasUserDeclaredDefaultCtor"
+          }
+        ],
+        "true": {
+          "question": {
+            "content": {
+              "text": "hasMembersInaccessibleCtor"
+            },
+            "answers": [
+              {
+                "content": {
+                  "text": "yes"
+                },
+                "action": [
+                  {
+                    "output": "undefinedImplicitDefaultCtor"
+                  },
+                  {
+                    "jump": "checkCopyCtor"
+                  }
+                ]
+              },
+              {
+                "content": {
+                  "text": "no"
+                },
+                "action": {
+                  "output": "hasDefinedImplicitDefaultCtor"
+                }
+              }
+            ]
+          }
+        },
+        "false": [
+          {
+            "output": "noImplicitDeclDefaultCtor"
+          },
+          {
+            "jump": "checkCopyCtor"
+          }
+        ]
+      }
+    },
     "checkDefaultCtor": {
       "branch": {
         "condition": [
           {
-            "flagNotSet": "hasConstMembers"
+            "flagSet": "hasUserDeclaredDefaultCtor"
+          }
+        ],
+        "true": {
+          "branch": {
+            "condition": [
+              {
+                "flagNotSet": "hasRefMembers"
+              },
+              {
+                "flagNotSet": "hasConstMembers"
+              }
+            ]
+          },
+          "true": {
+            "question": {
+              "content": {
+                "text": "hasMembersInaccessibleCtor"
+              },
+              "answers": [
+                {
+                  "content": {
+                    "text": "yes"
+                  },
+                  "action": {
+                    "question": {
+                      "content": {
+                        "text": "allHaveDefaultInits"
+                      },
+                      "answers": [
+                        {
+                          "content": {
+                            "text": "yes"
+                          },
+                          "action": {
+                            "output": "hasDefinedImplicitDefaultCtor"
+                          }
+                        },
+                        {
+                          "content": {
+                            "text": "no"
+                          },
+                          "action": [
+                            {
+                              "output": "deletedImplicitDefaultCtor"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "false": [
+          {
+            "output": "noImplicitDeclDefaultCtor"
           },
           {
-            "flagNotSet": "hasRefMembers"
+            "jump": "checkCopyCtor"
           }
         ]
       }
@@ -1247,6 +1489,12 @@
         "text": "hasTrivialDtor"
       },
       "link": "http://en.cppreference.com/w/cpp/language/destructor#Trivial_destructor"
+    },
+    "noImplicitDeclDefaultCtor": {
+      "content": {
+        "text": "noImplicitDeclDefaultCtor"
+      },
+      "link": "http://en.cppreference.com/w/cpp/language/default_constructor#Implicitly-declared_default_constructor"
     }
   },
   "text": {
@@ -1254,7 +1502,7 @@
       "yes": "Yes",
       "no": "No",
       "whichVersion": "Which version of C++ are you using?",
-      "isDerived": "Does your class inherit from another class?",
+      "isDerived": "Does your class directly inherit from another class?",
       "hasVirtualFunctions": "Does your class have any virtual functions?",
       "isVirtuallyDerived": "Does your class virtually inherit from another class?",
       "hasRefMembers": "Does your class have any reference members?",
@@ -1284,7 +1532,19 @@
       "isUserAsgnDefaulted": "Is this operator defaulted with <code>= default;</code>?",
       "isUserAsgnDeleted": "Is this operator deleted with <code>= delete;</code>?",
       "isUserDtorDefaulted": "Is this destructor defaulted with <code>= default;</code>?",
-      "isUserDtorDeleted": "Is this destructor deleted with <code>= default;</code>?"
+      "isUserDtorDeleted": "Is this destructor deleted with <code>= default;</code>?",
+      "areBaseClassDefaultCtorsAccessible": "Do your direct or virtual base classes have accessible default constructors?",
+      "areBaseClassDefaultCtorsTrivial": "Do all your direct or virtual base classes have trivial default constructors?",
+      "areBaseClassCopyCtorsAccessible": "Can all of your direct or virtual base classes be copied?",
+      "areBaseClassCopyCtorsTrivial": "Are all of your direct or virtual base class copy constructors trivial?",
+      "areBaseClassCopyAsgnsAccessible": "Can all of your direct or virtual base classes be copy assigned?",
+      "areBaseClassCopyAsgnsTrivial": "Are all of your direct or virtual base class copy assignment operators trivial?",
+      "areBaseClassMoveCtorsAccessible": "Can all of your direct or virtual base classes be moved?",
+      "areBaseClassMoveCtorsTrivial": "Are all of your direct or virtual base class move constructors trivial?",
+      "areBaseClassMoveAsgnsAccessible": "Can all of your direct or virtual base classes be move assigned?",
+      "areBaseClassMoveAsgnsTrivial": "Are all of your direct or virtual base class move assignment operators trivial?",
+      "areBaseClassDtorsAccessible": "Do all of your direct or virtual base classes have an accessible destructor?",
+      "areBaseClassDtorsTrivial": "Are all of your direct or virtual base class destructors virtual?"
     }
   }
 }
