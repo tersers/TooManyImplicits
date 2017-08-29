@@ -395,9 +395,14 @@
                     "content": {
                       "text": "yes"
                     },
-                    "action": {
-                      "setFlag": "hasUserDeclaredDefaultCtor"
-                    }
+                    "action": [
+                      {
+                        "setFlag": "hasUserDeclaredDefaultCtor"
+                      },
+                      {
+                        "setFlag": "hasUserDeclaredCtors"
+                      }
+                    ]
                   },
                   {
                     "content": {
@@ -417,9 +422,14 @@
                     "content": {
                       "text": "yes"
                     },
-                    "action": {
-                      "setFlag": "hasUserDeclaredCopyCtor"
-                    }
+                    "action": [
+                      {
+                        "setFlag": "hasUserDeclaredCopyCtor"
+                      },
+                      {
+                        "setFlag": "hasUserDeclaredCtors"
+                      }
+                    ]
                   },
                   {
                     "content": {
@@ -438,9 +448,14 @@
                   "content": {
                     "text": "yes"
                   },
-                  "action": {
-                    "setFlag": "hasUserDeclaredCopyAsgn"
-                  }
+                  "action": [
+                    {
+                      "setFlag": "hasUserDeclaredCopyAsgn"
+                    },
+                    {
+                      "setFlag": "hasUserDeclaredCtors"
+                    }
+                  ]
                 },
                 {
                   "content": {
@@ -815,9 +830,14 @@
                     "content": {
                       "text": "yes"
                     },
-                    "action": {
-                      "setFlag": "hasUserDeclaredCtors"
-                    }
+                    "action": [
+                      {
+                        "setFlag": "hasUserDeclaredCtors"
+                      },
+                      {
+                        "setFlag": "hasUserDeclaredCtors"
+                      }
+                    ]
                   },
                   {
                     "content": {
@@ -846,6 +866,37 @@
                           {
                             "content": {
                               "text": "yes"
+                            },
+                            "action": {
+                              "question": {
+                                "content": {
+                                  "text": "userDeclaredCopyCtorSignature"
+                                },
+                                "answers": [
+                                  {
+                                    "content": {
+                                      "rawtext": "<code>MyClass(const MyClass&)</code>"
+                                    },
+                                    "action": {
+                                      "set": {
+                                        "name": "userCopyCtorSig",
+                                        "value": "constRef"
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "content": {
+                                      "rawtext": "<code>MyClass(MyClass)</code>"
+                                    },
+                                    "action": {
+                                      "set": {
+                                        "name": "userCopyCtorSig",
+                                        "value": "copy"
+                                      }
+                                    }
+                                  }
+                                ]
+                              }
                             }
                           },
                           {
@@ -855,6 +906,9 @@
                             "action": [
                               {
                                 "setFlag": "hasUserDeclaredDefaultCtor"
+                              },
+                              {
+                                "setFlag": "hasUserDeclaredCtors"
                               },
                               {
                                 "question": {
@@ -917,6 +971,9 @@
                                 "setFlag": "hasUserDeclaredCopyCtor"
                               },
                               {
+                                "setFlag": "hasUserDeclaredCtors"
+                              },
+                              {
                                 "question": {
                                   "content": {
                                     "text": "isUserCtorDeleted"
@@ -971,6 +1028,37 @@
                           {
                             "content": {
                               "text": "yes"
+                            },
+                            "action": {
+                              "question": {
+                                "content": {
+                                  "text": "userDeclaredCopyAsgnSignature"
+                                },
+                                "answers": [
+                                  {
+                                    "content": {
+                                      "rawtext": "<code>operator=(const MyClass&)</code>"
+                                    },
+                                    "action": {
+                                      "set": {
+                                        "name": "userCopyAsgnSig",
+                                        "value": "constRef"
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "content": {
+                                      "rawtext": "<code>operator=(MyClass)</code>"
+                                    },
+                                    "action": {
+                                      "set": {
+                                        "name": "userCopyAsgnSig",
+                                        "value": "copy"
+                                      }
+                                    }
+                                  }
+                                ]
+                              }
                             }
                           },
                           {
@@ -1040,6 +1128,9 @@
                             "action": [
                               {
                                 "setFlag": "hasUserDeclaredMoveCtor"
+                              },
+                              {
+                                "setFlag": "hasUserDeclaredCtors"
                               },
                               {
                                 "question": {
@@ -1226,6 +1317,9 @@
                           {
                             "content": {
                               "text": "yes"
+                            },
+                            "action": {
+                              "setFlag": "hasDefaultInitializedMembers"
                             }
                           },
                           {
@@ -1268,9 +1362,14 @@
                             "content": {
                               "text": "yes"
                             },
-                            "action": {
-                              "jump": "checkDefaultCtor"
-                            }
+                            "action": [
+                              {
+                                "setFlag": "hasDefaultInitializedMembers"
+                              },
+                              {
+                                "jump": "checkDefaultCtor"
+                              }
+                            ]
                           },
                           {
                             "content": {
@@ -1321,7 +1420,7 @@
                     "output": "undefinedImplicitDefaultCtor"
                   },
                   {
-                    "jump": "checkCopyCtor"
+                    "jump": "checkTrivialDefaultCtorCpp03"
                   }
                 ]
               },
@@ -1341,7 +1440,7 @@
             "output": "noImplicitDeclDefaultCtor"
           },
           {
-            "jump": "checkCopyCtor"
+            "jump": "checkTrivialDefaultCtorCpp03"
           }
         ]
       }
@@ -1350,7 +1449,10 @@
       "branch": {
         "condition": [
           {
-            "flagSet": "hasUserDeclaredDefaultCtor"
+            "flagNotSet": "hasUserDeclaredDefaultCtor"
+          },
+          {
+            "flagNotSet": "hasUserDeclaredCtors"
           }
         ],
         "true": {
@@ -1384,9 +1486,14 @@
                           "content": {
                             "text": "yes"
                           },
-                          "action": {
-                            "output": "hasDefinedImplicitDefaultCtor"
-                          }
+                          "action": [
+                            {
+                              "output": "hasDefinedImplicitDefaultCtor"
+                            },
+                            {
+                              "setFlag": "hasDefaultInitializedMembers"
+                            }
+                          ]
                         },
                         {
                           "content": {
@@ -1411,7 +1518,171 @@
             "output": "noImplicitDeclDefaultCtor"
           },
           {
-            "jump": "checkCopyCtor"
+            "jump": "checkTrivialDefaultCtor"
+          }
+        ]
+      }
+    },
+    "checkTrivialDefaultCtorCpp03": {
+      "branch": {
+        "condition": [
+          {
+            "flagNotSet": "hasUserDeclaredDefaultCtor"
+          },
+          {
+            "flagNotSet": "hasVirtualFunctions"
+          },
+          {
+            "flagNotSet": "isDerived"
+          },
+          {
+            "flagSet": "baseClassDefaultCtorsTrivial"
+          }
+        ],
+        "true": {
+          "question": {
+            "content": {
+              "text": "nonStaticMembersHaveDefaultCtor"
+            },
+            "answers": [
+              {
+                "content": {
+                  "text": "yes"
+                },
+                "action": [
+                  {
+                    "setFlag": "hasTrivialDefaultCtor"
+                  },
+                  {
+                    "output": "hasTrivialDefaultCtor"
+                  },
+                  {
+                    "jump": "checkCopyCtor"
+                  }
+                ]
+              },
+              {
+                "content": {
+                  "text": "no"
+                },
+                "action": [
+                  {
+                    "setFlag": "noTrivialDefaultCtor"
+                  },
+                  {
+                    "output": "noTrivialDefaultCtor"
+                  },
+                  {
+                    "jump": "checkCopyCtor"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "false": [
+          {
+            "output": "noTrivialDefaultCtor"
+          },
+          {
+            "setFlag": "noTrivialDefaultCtor"
+          }
+        ]
+      }
+    },
+    "checkTrivialDefaultCtor": {
+      "branch": {
+        "condition": [
+          {
+            "flagNotSet": "hasUserDeclaredDefaultCtor"
+          },
+          {
+            "flagNotSet": "hasVirtualFunctions"
+          },
+          {
+            "flagNotSet": "isDerived"
+          },
+          {
+            "flagSet": "baseClassDefaultCtorsTrivial"
+          }
+        ],
+        "true": {
+          "question": {
+            "content": {
+              "text": "anyDefaultInitializers"
+            },
+            "answers": [
+              {
+                "content": {
+                  "text": "yes"
+                },
+                "action": [
+                  {
+                    "setFlag": "noTrivialDefaultCtor"
+                  },
+                  {
+                    "output": "noTrivialDefaultCtor"
+                  },
+                  {
+                    "jump": "checkCopyCtor"
+                  }
+                ]
+              },
+              {
+                "content": {
+                  "text": "no"
+                },
+                "action": {
+                  "question": {
+                    "content": {
+                      "text": "nonStaticMembersHaveDefaultCtor"
+                    },
+                    "answers": [
+                      {
+                        "content": {
+                          "text": "yes"
+                        },
+                        "action": [
+                          {
+                            "setFlag": "hasTrivialDefaultCtor"
+                          },
+                          {
+                            "output": "hasTrivialDefaultCtor"
+                          },
+                          {
+                            "jump": "checkCopyCtor"
+                          }
+                        ]
+                      },
+                      {
+                        "content": {
+                          "text": "no"
+                        },
+                        "action": [
+                          {
+                            "setFlag": "noTrivialDefaultCtor"
+                          },
+                          {
+                            "output": "noTrivialDefaultCtor"
+                          },
+                          {
+                            "jump": "checkCopyCtor"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                }
+              }
+            ]
+          }
+        },
+        "false": [
+          {
+            "output": "noTrivialDefaultCtor"
+          },
+          {
+            "setFlag": "noTrivialDefaultCtor"
           }
         ]
       }
@@ -1427,6 +1698,12 @@
     "hasTrivialDefaultCtor": {
       "content": {
         "text": "trivialDefaultCtor"
+      },
+      "link": "http://en.cppreference.com/w/cpp/language/default_constructor#Trivial_default_constructor"
+    },
+    "noTrivialDefaultCtor": {
+      "content": {
+        "text": "noTrivialDefaultCtor"
       },
       "link": "http://en.cppreference.com/w/cpp/language/default_constructor#Trivial_default_constructor"
     },
@@ -1494,7 +1771,25 @@
       "content": {
         "text": "noImplicitDeclDefaultCtor"
       },
-      "link": "http://en.cppreference.com/w/cpp/language/default_constructor#Implicitly-declared_default_constructor"
+      "link": "http://en.cppreference.com/w/cpp/language/default_constructor#Implicitly-defined_default_constructor"
+    },
+    "deletedImplicitDefaultCtor": {
+      "content": {
+        "text": "deletedImplicitDefaultCtor"
+      },
+      "link": "http://en.cppreference.com/w/cpp/language/default_constructor#Deleted_implicitly-declared_default_constructor"
+    },
+    "hasDefinedImplicitDefaultCtor": {
+      "content": {
+        "text": "hasDefinedImplicitDefaultCtor"
+      },
+      "link": "http://en.cppreference.com/w/cpp/language/default_constructor#Implicitly-defined_default_constructor"
+    },
+    "undefinedImplicitDefaultCtor": {
+      "content": {
+        "text": "undefinedImplicitDefaultCtor"
+      },
+      "link": "http://en.cppreference.com/w/cpp/language/default_constructor#Deleted_implicitly-declared_default_constructor"
     }
   },
   "text": {
@@ -1544,7 +1839,16 @@
       "areBaseClassMoveAsgnsAccessible": "Can all of your direct or virtual base classes be move assigned?",
       "areBaseClassMoveAsgnsTrivial": "Are all of your direct or virtual base class move assignment operators trivial?",
       "areBaseClassDtorsAccessible": "Do all of your direct or virtual base classes have an accessible destructor?",
-      "areBaseClassDtorsTrivial": "Are all of your direct or virtual base class destructors virtual?"
+      "areBaseClassDtorsTrivial": "Are all of your direct or virtual base class destructors virtual?",
+      "hasMembersInaccessibleCtor": "Do you have any members with an inaccessible default constructor?",
+      "undefinedImplicitDefaultCtor": "Your class has an implicitly-declared default constructor, but it is <b>undefined</b>.",
+      "hasDefinedImplicitDefaultCtor": "Your class has an implicitly-declared and defined default constructor.",
+      "deletedImplicitDefaultCtor": "Your class has an implicitly-declared default constructor, but it is <b>deleted</b>",
+      "noImplicitDeclDefaultCtor": "Your class does not have an implicitly-declared default constructor.",
+      "nonStaticMembersHaveDefaultCtor": "Does every non-static data member have a trivial default constructor?",
+      "noTrivialDefaultCtor": "Your class does <b>not</b> have a trivial default constructor.",
+      "userDeclaredCopyCtorSignature": "What is the signature of your copy constructor?",
+      "userDeclaredCopyAsgnSignature": "What is the signature of your copy assignment operator?"
     }
   }
 }
