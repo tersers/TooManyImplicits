@@ -3,7 +3,7 @@ Copy Constructor
 - Or, = default
 
 Signature:
-- Signature of (const T&) if
+- Signature is (const T&) if
 	- base class is (const B&) or (B)
 	- all non-static members have (const M&) or (M)
 - otherwise, has signature of (T&)
