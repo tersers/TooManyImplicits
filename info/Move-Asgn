@@ -13,9 +13,8 @@ Deleted/Undefined:
 - T has a non-static data member of a reference type;
 - T has a non-static data member that cannot be move-assigned (has deleted, inaccessible, or ambiguous move assignment operator);
 - T has direct or virtual base class that cannot be move-assigned (has deleted, inaccessible, or ambiguous move assignment operator);
-- T has a non-static data member or a direct or virtual base without a move assignment operator that is not trivially copyable;
+- T has a non-static data member or a direct or virtual base without a move assignment operator that is not trivially copyable; (until C++14)
 - T has a direct or indirect virtual base class. (until C++14)
-- A deleted implicitly-declared move assignment operator is ignored by overload resolution. (since C++14)
 
 Trivial:
 - It is not user-provided (meaning, it is implicitly-defined or defaulted);

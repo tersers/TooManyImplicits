@@ -14,7 +14,6 @@ T has direct or virtual base class that cannot be moved (has deleted, inaccessib
 T has direct or virtual base class with a deleted or inaccessible destructor;
 T is a union-like class and has a variant member with non-trivial move constructor;
 T has a non-static data member or a direct or virtual base without a move constructor that is not trivially copyable. (until C++14)
-The deleted implicitly-declared move constructor is ignored by overload resolution (otherwise it would prevent copy-initialization from rvalue). (since C++14)
 
 Trivial:
 - it is not user-provided (meaning, it is implicitly-defined or defaulted);

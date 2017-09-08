@@ -1543,7 +1543,7 @@
                       "output": "undefinedImplicitCopyAsgn"
                     },
                     {
-                      "jump": "checkDtor"
+                      "jump": "checkDtorCpp03"
                     }
                   ]
                 },
@@ -1566,7 +1566,7 @@
                               "output": "undefinedImplicitCopyAsgn"
                             },
                             {
-                              "jump": "checkDtor"
+                              "jump": "checkDtorCpp03"
                             }
                           ]
                         },
@@ -1579,7 +1579,7 @@
                               "output": "hasDefinedImplicitCopyAsgn"
                             },
                             {
-                              "jump": "checkDtor"
+                              "jump": "checkDtorCpp03"
                             }
                           ]
                         }
@@ -1595,7 +1595,7 @@
               "output": "undefinedImplicitCopyAsgn"
             },
             {
-              "jump": "checkDtor"
+              "jump": "checkDtorCpp03"
             }
           ]
         },
@@ -1604,12 +1604,613 @@
             "output": "noImplicitDeclCopyAsgn"
           },
           {
+            "jump": "checkDtorCpp03"
+          }
+        ]
+      }
+    },
+    "checkCopyAsgn": {
+      "branch": {
+        "condition": {
+          "flagNotSet": "hasUserDeclaredCopyAsgn"
+        },
+        "true": {
+          "branch": {
+            "condition": [
+              {
+                "flagSet": "baseClassCopyAsgnsAccessible"
+              },
+              {
+                "flagNotSet": "hasRefMembers"
+              },
+              {
+                "flagNotSet": "hasUserDeclaredMoveCtor"
+              },
+              {
+                "flagNotSet": "hasUserDeclaredMoveAsgn"
+              }
+            ]
+          },
+          "true": {
+            "question": {
+              "content": {
+                "text": "hasConstNonClassDataMember"
+              },
+              "answers": [
+                {
+                  "content": {
+                    "text": "yes"
+                  },
+                  "action": [
+                    {
+                      "output": "deletedImplicitCopyAsgn"
+                    },
+                    {
+                      "jump": "checkMoveCtor"
+                    }
+                  ]
+                },
+                {
+                  "content": {
+                    "text": "no"
+                  },
+                  "action": {
+                    "question": {
+                      "content": {
+                        "text": "hasConstArrayDataMember"
+                      },
+                      "answers": [
+                        {
+                          "content": {
+                            "text": "yes"
+                          },
+                          "action": [
+                            {
+                              "output": "deletedImplicitCopyAsgn"
+                            },
+                            {
+                              "jump": "checkMoveCtor"
+                            }
+                          ]
+                        },
+                        {
+                          "content": {
+                            "text": "no"
+                          },
+                          "action": [
+                            {
+                              "output": "hasDefinedImplicitCopyAsgn"
+                            },
+                            {
+                              "jump": "checkMoveCtor"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "false": [
+            {
+              "output": "deletedImplicitCopyAsgn"
+            },
+            {
+              "jump": "checkMoveCtor"
+            }
+          ]
+        },
+        "false": [
+          {
+            "output": "noImplicitDeclCopyAsgn"
+          },
+          {
+            "jump": "checkMoveCtor"
+          }
+        ]
+      }
+    },
+    "checkMoveCtor": {
+      "branch": {
+        "condition": {
+          "flagEquals": {
+            "name": "cppVersion",
+            "value": "cpp11"
+          },
+          "true": {
+            "jump": "checkMoveCtorCpp11"
+          },
+          "false": {
+            "jump": "checkMoveCtorCpp14AndNewer"
+          }
+        }
+      }
+    },
+    "checkMoveCtorCpp11": {
+      "branch": {
+        "condition": [
+          {
+            "flagNotSet": "hasUserDeclaredMoveCtor"
+          },
+          {
+            "flagNotSet": "hasUserDeclaredCopyCtor"
+          },
+          {
+            "flagNotSet": "hasUserDeclaredCopyAsgn"
+          },
+          {
+            "flagNotSet": "hasUserDeclaredMoveAsgn"
+          },
+          {
+            "flagNotSet": "hasUserDeclaredDtor"
+          }
+        ],
+        "true": {
+          "branch": {
+            "condition": [
+              {
+                "flagSet": "baseClassMoveCtorsAccessible"
+              },
+              {
+                "flagSet": "baseClassDtorsAccessible"
+              }
+            ],
+            "true": {
+              "question": {
+                "content": {
+                  "text": "nonStaticMembersUnmovable"
+                },
+                "answers": [
+                  {
+                    "content": {
+                      "text": "yes"
+                    },
+                    "action": [
+                      {
+                        "output": "noImplicitDeclMoveCtor"
+                      },
+                      {
+                        "jump": "checkMoveAsgnCpp11"
+                      }
+                    ]
+                  },
+                  {
+                    "content": {
+                      "text": "no"
+                    },
+                    "action": {
+                      "question": {
+                        "content": {
+                          "text": "nonStaticMembersOrBaseNoTrivialMoveCtor"
+                        },
+                        "answers": [
+                          {
+                            "content": {
+                              "text": "yes"
+                            },
+                            "action": [
+                              {
+                                "output": "noImplicitDeclMoveCtor"
+                              },
+                              {
+                                "jump": "checkMoveAsgnCpp11"
+                              }
+                            ]
+                          },
+                          {
+                            "content": {
+                              "text": "no"
+                            },
+                            "action": [
+                              {
+                                "output": "hasDefinedImplicitMoveCtor"
+                              },
+                              {
+                                "jump": "checkMoveAsgnCpp11"
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    }
+                  }
+                ]
+              }
+            },
+            "false": [
+              {
+                "output": "noImplicitDeclMoveCtor"
+              },
+              {
+                "jump": "checkMoveAsgnCpp11"
+              }
+            ]
+          }
+        },
+        "false": [
+          {
+            "output": "noImplicitDeclMoveCtor"
+          },
+          {
+            "jump": "checkMoveAsgnCpp11"
+          }
+        ]
+      }
+    },
+    "checkMoveCtorCpp14AndNewer": {
+      "branch": {
+        "condition": [
+          {
+            "flagNotSet": "hasUserDeclaredMoveCtor"
+          },
+          {
+            "flagNotSet": "hasUserDeclaredCopyCtor"
+          },
+          {
+            "flagNotSet": "hasUserDeclaredCopyAsgn"
+          },
+          {
+            "flagNotSet": "hasUserDeclaredMoveAsgn"
+          },
+          {
+            "flagNotSet": "hasUserDeclaredDtor"
+          }
+        ],
+        "true": {
+          "branch": {
+            "condition": [
+              {
+                "flagSet": "baseClassMoveCtorsAccessible"
+              },
+              {
+                "flagSet": "baseClassDtorsAccessible"
+              }
+            ],
+            "true": {
+              "question": {
+                "content": {
+                  "text": "nonStaticMembersUnmovable"
+                },
+                "answers": [
+                  {
+                    "content": {
+                      "text": "yes"
+                    },
+                    "action": [
+                      {
+                        "output": "hasDefinedImplicitMoveCtor"
+                      },
+                      {
+                        "jump": "checkMoveAsgnCpp14AndNewer"
+                      }
+                    ]
+                  },
+                  {
+                    "content": {
+                      "text": "no"
+                    },
+                    "action": [
+                      {
+                        "output": "deletedImplicitMoveCtor"
+                      },
+                      {
+                        "jump": "checkMoveAsgnCpp14AndNewer"
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            "false": [
+              {
+                "output": "deletedImplicitMoveCtor"
+              },
+              {
+                "jump": "checkMoveAsgnCpp14AndNewer"
+              }
+            ]
+          }
+        },
+        "false": [
+          {
+            "output": "noImplicitDeclMoveCtor"
+          },
+          {
+            "jump": "checkMoveAsgnCpp14AndNewer"
+          }
+        ]
+      }
+    },
+    "checkMoveAsgnCpp11": {
+      "branch": {
+        "condition": [
+          {
+            "flagNotSet": "hasUserDeclaredMoveAsgn"
+          },
+          {
+            "flagNotSet": "hasUserDeclaredCopyCtor"
+          },
+          {
+            "flagNotSet": "hasUserDeclaredMoveCtor"
+          },
+          {
+            "flagNotSet": "hasUserDeclaredCopyAsgn"
+          },
+          {
+            "flagNotSet": "hasUserDeclaredDtor"
+          }
+        ],
+        "true": {
+          "branch": {
+            "condition": [
+              {
+                "flagNotSet": "hasConstMembers"
+              },
+              {
+                "flagNotSet": "hasRefMembers"
+              },
+              {
+                "flagSet": "baseClassMoveAsgnsAccessible"
+              },
+              {
+                "flagNotSet": "isVirtuallyDerived"
+              }
+            ]
+          },
+          "true": {
+            "question": {
+              "content": {
+                "text": "nonStaticMembersInaccessibleMoveAssign"
+              },
+              "answers": [
+                {
+                  "content": {
+                    "text": "yes"
+                  },
+                  "action": [
+                    {
+                      "output": "noImplicitDeclMoveAsgn"
+                    },
+                    {
+                      "jump": "checkDtor"
+                    }
+                  ]
+                },
+                {
+                  "content": {
+                    "text": "no"
+                  },
+                  "action": {
+                    "question": {
+                      "content": {
+                        "text": "nonStaticMembersNoTrivialMoveAsgn"
+                      },
+                      "answers": [
+                        {
+                          "content": {
+                            "text": "yes"
+                          },
+                          "action": [
+                            {
+                              "output": "noImplicitDeclMoveAsgn"
+                            },
+                            {
+                              "jump": "checkDtor"
+                            }
+                          ]
+                        },
+                        {
+                          "content": {
+                            "text": "no"
+                          },
+                          "action": [
+                            {
+                              "output": "hasDefinedImplicitMoveAsgn"
+                            },
+                            {
+                              "jump": "checkDtor"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "false": [
+            {
+              "output": "noImplicitDeclMoveAsgn"
+            },
+            {
+              "jump": "checkDtor"
+            }
+          ]
+        },
+        "false": [
+          {
+            "output": "noImplicitDeclMoveAsgn"
+          },
+          {
             "jump": "checkDtor"
           }
         ]
       }
     },
-    "checkCopyAsgn": {}
+    "checkMoveAsgnCpp14AndNewer": {
+      "branch": {
+        "condition": [
+          {
+            "flagNotSet": "hasUserDeclaredMoveAsgn"
+          },
+          {
+            "flagNotSet": "hasUserDeclaredCopyCtor"
+          },
+          {
+            "flagNotSet": "hasUserDeclaredMoveCtor"
+          },
+          {
+            "flagNotSet": "hasUserDeclaredCopyAsgn"
+          },
+          {
+            "flagNotSet": "hasUserDeclaredDtor"
+          }
+        ],
+        "true": {
+          "branch": {
+            "condition": [
+              {
+                "flagNotSet": "hasConstMembers"
+              },
+              {
+                "flagNotSet": "hasRefMembers"
+              },
+              {
+                "flagSet": "baseClassMoveAsgnsAccessible"
+              }
+            ]
+          },
+          "true": {
+            "question": {
+              "content": {
+                "text": "nonStaticMembersInaccessibleMoveAssign"
+              },
+              "answers": [
+                {
+                  "content": {
+                    "text": "yes"
+                  },
+                  "action": [
+                    {
+                      "output": "deletedImplicitMoveAsgn"
+                    },
+                    {
+                      "jump": "checkDtor"
+                    }
+                  ]
+                },
+                {
+                  "content": {
+                    "text": "no"
+                  },
+                  "action": [
+                    {
+                      "output": "hasDefinedImplicitMoveAsgn"
+                    },
+                    {
+                      "jump": "checkDtor"
+                    }
+                  ]
+                }
+              ]
+            }
+          },
+          "false": [
+            {
+              "output": "deletedImplicitMoveAsgn"
+            },
+            {
+              "jump": "checkDtor"
+            }
+          ]
+        },
+        "false": [
+          {
+            "output": "noImplicitDeclMoveAsgn"
+          },
+          {
+            "jump": "checkDtor"
+          }
+        ]
+      }
+    },
+    "checkDtor": {
+      "branch": {
+        "condition": {
+          "flagNotSet": "hasUserDeclaredDtor"
+        },
+        "true": {
+          "branch": {
+            "condition": {
+              "flagSet": "baseClassDtorsAccessible"
+            },
+            "true": {
+              "question": {
+                "content": {
+                  "text": "nonStaticMembersUndeletable"
+                },
+                "answers": [
+                  {
+                    "content": {
+                      "text": "yes"
+                    },
+                    "action": [
+                      {
+                        "output": "deletedImplicitDtor"
+                      }
+                    ]
+                  },
+                  {
+                    "content": {
+                      "text": "no"
+                    },
+                    "action": {
+                      "branch": {
+                        "condition": {
+                          "or": [
+                            {
+                              "flagSet": "isDerived"
+                            },
+                            {
+                              "flagSet": "isVirtuallyDerived"
+                            }
+                          ]
+                        },
+                        "true": {
+                          "question": {
+                            "content": {
+                              "text": "dtorVirtualCallsUndefinedFunction"
+                            },
+                            "true": [
+                              {
+                                "output": "deletedImplicitDtor"
+                              }
+                            ],
+                            "false": [
+                              {
+                                "output": "hasDefinedImplicitDtor"
+                              }
+                            ]
+                          }
+                        },
+                        "false": [
+                          {
+                            "output": "hasDefinedImplicitDtor"
+                          }
+                        ]
+                      }
+                    }
+                  }
+                ]
+              }
+            },
+            "false": [
+              {
+                "output": "deletedImplicitDtor"
+              }
+            ]
+          }
+        },
+        "false": [
+          {
+            "output": "noImplicitDeclDtor"
+          }
+        ]
+      }
+    }
   },
   "answers": {
     "hasImplicitDeclDefaultCtor": {
@@ -1707,6 +2308,78 @@
         "text": "noImplicitDeclCopyAsgn"
       },
       "link": "http://en.cppreference.com/w/cpp/language/copy_assignment#Implicitly-declared_copy_assignment_operator"
+    },
+    "hasDefinedImplicitCopyAsgn": {
+      "content": {
+        "text": "hasDefinedImplicitCopyAsgn"
+      },
+      "link": "http://en.cppreference.com/w/cpp/language/copy_constructor#Deleted_implicitly-defined_copy_constructor"
+    },
+    "undefinedImplicitCopyAsgn": {
+      "content": {
+        "text": "undefinedImplicitCopyAsgn"
+      },
+      "link": "http://en.cppreference.com/w/cpp/language/copy_constructor#Deleted_implicitly-defined_copy_constructor"
+    },
+    "deletedImplicitCopyAsgn": {
+      "content": {
+        "text": "deletedImplicitCopyAsgn"
+      },
+      "link": "http://en.cppreference.com/w/cpp/language/copy_constructor#Deleted_implicitly-defined_copy_constructor"
+    },
+    "noImplicitDeclMoveCtor": {
+      "content": {
+        "text": "noImplicitDeclMoveCtor"
+      },
+      "link": "http://en.cppreference.com/w/cpp/language/move_constructor#Implicitly-declared_move_constructor"
+    },
+    "deletedImplicitMoveCtor": {
+      "content": {
+        "text": "deletedImplicitMoveCtor"
+      },
+      "link": "http://en.cppreference.com/w/cpp/language/move_constructor#Deleted_implicitly-declared_move_constructor"
+    },
+    "noImplicitDeclMoveAsgn": {
+      "content": {
+        "text": "noImplicitDeclMoveAsgn"
+      },
+      "link": "http://en.cppreference.com/w/cpp/language/move_assignment#Implicitly-declared_move_assignment_operator"
+    },
+    "deletedImplicitMoveAsgn": {
+      "content": {
+        "text": "deletedImplicitMoveAsgn"
+      },
+      "link": "en.cppreference.com/w/cpp/language/move_assignment#Deleted_implicitly-declared_move_assignment_operator"
+    },
+    "hasDefinedImplicitMoveAsgn": {
+      "content": {
+        "text": "hasDefinedImplicitMoveAsgn"
+      },
+      "link": "http://en.cppreference.com/w/cpp/language/move_assignment#Implicitly-declared_move_assignment_operator"
+    },
+    "noImplicitDeclDtor": {
+      "content": {
+        "text": "noImplicitDeclDtor"
+      },
+      "link": "http://en.cppreference.com/w/cpp/language/destructor#Implicitly-declared_destructor"
+    },
+    "undefinedImplicitDtor": {
+      "content": {
+        "text": "undefinedImplicitDtor"
+      },
+      "link": "http://en.cppreference.com/w/cpp/language/destructor#Deleted_implicitly-declared_destructor"
+    },
+    "deletedImplicitDtor": {
+      "content": {
+        "text": "deletedImplicitDtor"
+      },
+      "link": "http://en.cppreference.com/w/cpp/language/destructor#Deleted_implicitly-declared_destructor"
+    },
+    "hasDefinedImplicitDtor": {
+      "content": {
+        "text": "hasDefinedImplicitDtor"
+      },
+      "link": "http://en.cppreference.com/w/cpp/language/destructor#Implicitly-defined_destructor"
     }
   },
   "text": {
@@ -1763,7 +2436,17 @@
       "noImplicitDeclCopyAsgn": "Your class does not have an implicitly-declared copy assignment operator.",
       "hasMembersInaccessibleCopyAsgn": "Do you have any memers with an inaccessible copy assignment operator?",
       "hasConstNonClassDataMember": "Does your class have a const non-static data member of non-class type?",
-      "hasConstArrayDataMember": "Does your class have a const array of non-class type?"
+      "hasConstArrayDataMember": "Does your class have a const array of non-class type?",
+      "hasDefinedImplicitCopyAsgn": "Your class has an implicitly-declared and defined copy assignment operator.",
+      "undefinedImplicitCopyAsgn": "Your class has an implicitly-declared copy assignment operator, but it is undefined.",
+      "deletedImplicitCopyAsgn": "Your class has an implicitly-declared copy assignment operator, but it is deleted.",
+      "noImplicitDeclMoveCtor": "Your class does not have an implicitly-declared move constructor.",
+      "nonStaticMembersUnmovable": "Does your class have any members that cannot be moved?",
+      "deletedImplicitMoveAsgn": "Your class has an implicitly declared move assignment operator, but it is deleted.",
+      "nonStaticMembersInaccessibleMoveAssin": "Does your class have any non-static data members without a trivial move assignment operator?",
+      "undefinedImplicitDtor": "Your class has an implicitly-declared destructor, but it is undefined.",
+      "deletedImplicitDtor": "Your class has an implicitly-declared destructor, but it is deleted.",
+      "dtorVirtualCallsUndefinedFunction": "Does your virtual destructor call an undefined, deleted, or otherwise inaccessible function?"
     }
   }
 }
